@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 
 // p.75
 @RestController
-@RequestMapping("/api.v1/delete-api")
+@RequestMapping("/api/v1/delete-api")
 public class DeleteController {
     // 1. p.76
     @DeleteMapping("/{variable}")
