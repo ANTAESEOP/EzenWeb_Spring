@@ -1,6 +1,7 @@
 package com.Ezenweb.controller;
 
 import com.Ezenweb.domain.Dto.BoardDto;
+import com.Ezenweb.service.BoardService;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,7 @@ public class BoardController {
         // 1. DTO 내용 확인
         System.out.println( boardDto.toString());
         // 2. ----------> 서비스[ 비지니스 로직 ] 로 이동
+        boolean result = new BoardService().setboard(boardDto);
         // 3. 반환
         return true;
     }
