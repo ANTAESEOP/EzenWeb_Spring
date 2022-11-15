@@ -9,9 +9,6 @@ import lombok.*;
 @ToString//객체내 필드 정보 확인 ToString메소드 주입
 @Builder//객체 생성 안전성 보장 [매개변수 개수 /순서 무관 ]
 public class BoardDto {
-
     private String btitle;
     private String bcontent;
-
-
 }
