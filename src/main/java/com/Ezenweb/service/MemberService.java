@@ -4,12 +4,18 @@ import com.Ezenweb.domain.Dto.MemberDto;
 import com.Ezenweb.domain.entity.MemberEntity;
 import com.Ezenweb.domain.entity.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service // 해당 클래스가 Service 명시 // 1. 비지니스 로직 [ 알고리즘 - 기능 ]
     public class MemberService {
@@ -19,6 +25,8 @@ import java.util.Optional;
     private MemberRepository memberRepository;  // 리포지토리 객체
     @Autowired // 스프링 컨테이너 [ 메모리 ] 위임
     private HttpServletRequest request;         // 요청객체
+    @Autowired
+    private JavaMailSender javaMailSender; // 메일 전송 객체
 
     // --------------------------------------- 서비스 메소드 --------------------------------------- //
     // 1. 회원가입 기능
@@ -119,6 +127,7 @@ import java.util.Optional;
         }
     }
 
+    // 7. 로그아웃 서비스
     public int logout() {
         Object object = request.getSession().getAttribute("loginMno");
         if (object != null) {
@@ -126,4 +135,62 @@ import java.util.Optional;
         }
         return 0;
     }
+    // 8. 모든 회원 정보 호출 서비스
+    public List<MemberDto> list(){
+        // 1. JAP 이용한 모든 엔티티 호출
+        List<MemberEntity> list = memberRepository.findAll();
+        // 2. 엔티티 --> DTO
+            // Dto list 선언
+        List<MemberDto> dtoList = new ArrayList<>();
+        for(MemberEntity entity : list){
+            dtoList.add(entity.toDto() );
+        }
+        return dtoList;
+    }
+    // 9. 인증코드 발송
+
+    public String getauth(String toemail){
+
+        String auth = ""; // 인증코드
+        String html = "<html><body><h1> EZENWEB 회원가입 이메일 인증코드 입니다 </h1>";
+
+        Random random = new Random();
+        for (int i = 0; i<6 ; i++){
+            char randchar = (char)(random.nextInt(26)+97); // 97 ~ 122 : 알파벳 소문자
+            // char randchar = (char)random.nextInt(10)+48; // 48 ~ 57 : 48 ~ 57 : 0 ~ 9
+            auth += randchar;
+        }
+        html += "<div>인증코드 : "+auth+"</div>";
+        html += "</body></html>";
+        mailsend( toemail , "ezen 인증코드" , html); // 메일전송
+        return auth; // 인증코드 반환
+    }
+    // *. 메일 전송 서비스
+    public void mailsend(String tomail , String title , String content ){
+        try {
+            // 1. Mime 프로토콜 객체 생성
+            MimeMessage message = javaMailSender.createMimeMessage();
+            // 2. MimeHelper 설정 객체 생성 new MimeMessageHelper ( mime객체명 , 첨부파일여부 , 인코딩 )
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true, "UTF-8");
+            // 3. 보내는사람 정보
+            mimeMessageHelper.setFrom("dksxotjq2@naver.com", "ezen");
+            // 4. 받는사람
+            mimeMessageHelper.setTo(tomail);
+            // 5. 메일 제목
+            mimeMessageHelper.setSubject(title);
+            // 6. 메일 내용
+            mimeMessageHelper.setText(content.toString(), true); // HTML 형식 지원
+            // 7. 메일 전송
+            javaMailSender.send(message);
+        }catch (Exception e){System.out.println("메일 전송 실패" + e);}
+    }
+
 }
+
+/*
+    메일 전송
+        1. 라이브러리 implementation 'org.springframework.boot:spring-boot-starter-mail' // 스프링 메일 전송 SMTP
+        2. 보내는 사람 이메일 정보 [ application.properties ]
+            네이버 기준 : 네이버 로그인 - > 메일 -> 환경설정
+
+ */

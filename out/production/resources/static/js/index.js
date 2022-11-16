@@ -22,10 +22,27 @@ function getloginMno (){
         }
     })
 }
+
 function logout(){
     $.ajax({
         url : "/member/logout",
         type : "get",
         success : function(re) {window.location.reload()}
+    })
+}
+list() // list 함수 실행
+// 회원 목록
+function list(){
+    $.ajax({
+        url : "/member/list",
+        type : "get",
+        success : function(re) {
+            let html = '<tr> <th> 번호 </th> <th> 이메일 </th> <th> 비밀번호 </th> </tr>';
+            re.forEach( (m)=>{
+                html +=
+                '<tr> <td> '+m.mno+'</td> <td> '+m.memail+' </td> <td> '+m.mpassword+' </td> </tr>';
+            })
+            document.querySelector(".mtable").innerHTML = html;
+        }
     })
 }
