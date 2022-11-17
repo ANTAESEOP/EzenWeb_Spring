@@ -58,7 +58,6 @@ public class BoardController {
     public List <BoardDto> boardlist(){
         return boardService.boardlist();
     }
-
     // 3. 게시물 개별 조회
     @GetMapping("/getboard")
     public BoardDto getboard(@RequestParam("bno") int bno ){
@@ -76,17 +75,5 @@ public class BoardController {
     public boolean updateboard(@RequestParam BoardDto boardDto){
         return boardService.updateboard( boardDto );
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
