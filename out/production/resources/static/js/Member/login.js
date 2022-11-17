@@ -8,6 +8,6 @@ function getmember(){
         type : "post",
         data : JSON.stringify(info) ,
         contentType : "application/json",
-        success : function(re) { location.href = "/index"},
+        success : function(re) { location.href = "/index" },
     })
 }

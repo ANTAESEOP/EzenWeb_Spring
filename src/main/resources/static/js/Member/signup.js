@@ -2,21 +2,22 @@
 function setmember(){
     let info = {
         memail : document.querySelector('.memail').value ,
-        mpassword : document.querySelector('.mpassword').value
+        mpassword : document.querySelector('.mpassword').value ,
+        mphone : document.querySelector('.mphone').value
     }
         let timerbox = document.querySelector('.timerbox').innerHTML
-        if(timerbox != "인증성공"){alert('이메일 인증부터 해주세요 ~ ') return;}
+        if( timerbox != "인증성공"){alert('이메일 인증부터 해주세요 ~ '); return;}
 
     $.ajax({
         url : "/member/setmember",
         type : "POST",
         data : JSON.stringify( info ) ,
         contentType : "application/json",
-        success : function(re) { location.href = "/index"}
+        success : function(re) { location.href = "/login"}
     })
 }
 // 2. 인증코드 요청
-let auth = null;    // 발급된 인증코드
+let auth = 1234;    // 발급된 인증코드 임시 : let auth = null;
 let timer = 0;      // 인증 시간
 let timerinter = null;// setInterval
 function getauth() {
@@ -38,7 +39,6 @@ function getauth() {
     })
 }
 // 4. 타이머 함수
-let timerinter = null;
 function settimer(){
     // 1. setinterval(function(){} , 밀리초); // 일정 시간 마다 함수(function) 실행
     // 2. clearInterval( 객체명 ) // Interval 종료

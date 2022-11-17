@@ -22,12 +22,10 @@ public class MemberController {
     public Resource getsignup() {
         return new ClassPathResource("templates/member/signup.html"); // 프로젝트내 resource -> templates -> member -> signup.html 반환
     }
-
     @GetMapping("/login") // 로그인
     public Resource getlogin() {
         return new ClassPathResource("templates/member/login.html"); // 프로젝트내 resource -> templates -> member -> login.html 반환
     }
-
     @GetMapping("/findpassword") // 비밀번호 찾기
     public Resource findpassword() {
         return new ClassPathResource("templates/member/findpassword.html"); // �
