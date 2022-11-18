@@ -13,7 +13,7 @@ function setmember(){
         type : "POST",
         data : JSON.stringify( info ) ,
         contentType : "application/json",
-        success : function(re) { location.href = "/login"}
+        success : function(re) { location.href = "/member/login"}
     })
 }
 // 2. 인증코드 요청

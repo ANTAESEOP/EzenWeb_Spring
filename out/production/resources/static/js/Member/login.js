@@ -8,6 +8,10 @@ function getmember(){
         type : "post",
         data : JSON.stringify(info) ,
         contentType : "application/json",
-        success : function(re) { location.href = "/index" },
+        success : function(re) {
+            if(re == '1'){
+                location.href = "/index"
+            } else { alert('로그인에 실패했습니다.')}
+        }
     })
 }

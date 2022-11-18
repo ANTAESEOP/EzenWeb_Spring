@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/board") // 공통 URL [ localhost:8080/board ]
 public class BoardController {
 
-    // 컨트롤 역할 : 요청 / 응답
+    // 컨트롤 역할 : HTTP 요청 / ModelAndView 응답
 
     // ---------------- 1. 전역변수 ---------------- //
     // 1. 서비스 메소드 호출을 위한 객체 생성 [ ioc 제어역전 ]
@@ -72,7 +72,7 @@ public class BoardController {
 
     // 5. 게시물 수정 [ 첨부파일 ]
     @PutMapping("/updateboard")
-    public boolean updateboard(@RequestParam BoardDto boardDto){
+    public boolean updateboard(@RequestBody BoardDto boardDto){
         return boardService.updateboard( boardDto );
     }
 

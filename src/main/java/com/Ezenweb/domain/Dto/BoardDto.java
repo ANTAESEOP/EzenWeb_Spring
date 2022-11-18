@@ -1,6 +1,6 @@
 package com.Ezenweb.domain.Dto;
 
-import com.Ezenweb.domain.entity.BoardEntity;
+import com.Ezenweb.domain.entity.Board.BoardEntity;
 import lombok.*;
 
 @NoArgsConstructor//빈 생성자
@@ -16,13 +16,18 @@ public class BoardDto {
     private int bview;          // 조회수
     private String bfile;       // 첨부파일
     private int mno;            // 작성자 [ 회원번호 - FK ]
-    private int cno;            // 카테고리 [ 카테고리 - FK ]
+    private int bcno;            // 카테고리 [ 카테고리 - FK ]
+    private String memail;         // 회원 아이디
 
     // 1. 형번환
-    public BoardEntity toenEntity(){
-        // * 생성자를 이용한 객체 생성
-        return new BoardEntity(
-                this.bno, this.btitle, this.bcontent,
-                this.bview, this.bfile, this.mno,this.cno);
+    public BoardEntity toEntity() {
+        // * 빌더 패턴을 이용한 객체 생성
+        return BoardEntity.builder()
+                .bno(this.bno)
+                .btitle(this.btitle)
+                .bcontent(this.bcontent)
+                .bview(this.bview)
+                .bfile(this.bfile)
+                .build();
     }
 }

@@ -11,6 +11,12 @@ function setboard(){
         type : "post",
         data : JSON.stringify(data) ,
         contentType : "application/json",
-        success : function(re) { alert(re) }
+        success : function(re) {
+            if(re == true){
+                alert('글 작성 성공');
+                location.href = "/board/list";
+            }
+            else { alert('글 작성 실패') }
+         }
     })
 }

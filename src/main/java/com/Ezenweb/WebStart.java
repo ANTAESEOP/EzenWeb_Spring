@@ -2,9 +2,11 @@ package com.Ezenweb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 // p.11
 @SpringBootApplication // 스프링 웹 기본설명 [ 1. MVC , 2. 내장서버 , 3 RESTFUL , 4. 웹 설정 ]
+@EnableJpaAuditing
 public class WebStart {
     public static void main(String[] args) {    // main 스레드
         // SpringApplication.run(현재 클래스 명.class );
