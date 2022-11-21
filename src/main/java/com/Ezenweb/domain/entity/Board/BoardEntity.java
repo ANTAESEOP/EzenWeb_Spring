@@ -69,9 +69,6 @@ public class BoardEntity extends BaseEntity {
     @ManyToMany     n : n
 */
 
-
-
-
 /*
     자바 ---------------------> DB 자료형
     int                        int

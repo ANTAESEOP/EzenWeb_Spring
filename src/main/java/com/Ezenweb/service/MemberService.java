@@ -28,6 +28,21 @@ import java.util.Random;
     private JavaMailSender javaMailSender; // 메일 전송 객체
 
     // --------------------------------------- 서비스 메소드 --------------------------------------- //
+   // * 로그인된 엔티티 호출
+    // 1. 로그인 정보 확인 [ 세션 = loginMno ]
+    public MemberEntity getEntity() {
+        Object object = request.getSession().getAttribute("loginMno");
+            if (object == null) { return null;}
+        // 2. 로그인 된 회원정보 호출
+        int mno = (Integer) object; // 로그인된 회원 번호
+        // 3. 회원번호 --> 회원정보 호출
+        Optional<MemberEntity> optional = memberRepository.findById(mno);
+        if (!optional.isPresent()) {return null;}
+        // 4. 로그인된 회원의 엔티티
+        MemberEntity memberEntity = optional.get();
+        return memberEntity;
+    }
+
     // 1. 회원가입 기능
     @Transactional
     public int setmember(MemberDto memberDto) {

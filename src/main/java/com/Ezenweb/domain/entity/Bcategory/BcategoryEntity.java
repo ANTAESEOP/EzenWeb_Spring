@@ -1,5 +1,6 @@
 package com.Ezenweb.domain.entity.Bcategory;
 
+import com.Ezenweb.domain.Dto.BcategoryDto;
 import com.Ezenweb.domain.entity.BaseEntity;
 import com.Ezenweb.domain.entity.Board.BoardEntity;
 import lombok.*;
@@ -26,4 +27,11 @@ public class BcategoryEntity extends BaseEntity {
     @Builder.Default
     private List<BoardEntity> boardEntityList
             = new ArrayList<>();
+
+    public BcategoryDto toDto(){
+        return BcategoryDto.builder()
+                .bcno( this.bcno )
+                .bcname( this.bcname )
+                .build();
+    }
 }

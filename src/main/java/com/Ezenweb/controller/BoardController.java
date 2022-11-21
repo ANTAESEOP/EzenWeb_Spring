@@ -1,5 +1,6 @@
 package com.Ezenweb.controller;
 
+import com.Ezenweb.domain.Dto.BcategoryDto;
 import com.Ezenweb.domain.Dto.BoardDto;
 import com.Ezenweb.service.BoardService;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,25 +57,34 @@ public class BoardController {
 
     // 2. 게시물 목록 조회 [ 페이징 , 검색 ]
     @GetMapping("/boardlist")
-    public List <BoardDto> boardlist(){
-        return boardService.boardlist();
+    public List <BoardDto> boardlist(@RequestParam("bcno") int bcno ){
+        return boardService.boardlist( bcno );
     }
     // 3. 게시물 개별 조회
     @GetMapping("/getboard")
     public BoardDto getboard(@RequestParam("bno") int bno ){
         return boardService.getboard(bno);
     }
-
     // 4. 게시물 삭제
     @DeleteMapping("/deleteboard")
     public boolean deleteboard(@RequestParam("bno") int bno ){
         return boardService.deleteboard( bno );
     }
-
     // 5. 게시물 수정 [ 첨부파일 ]
     @PutMapping("/updateboard")
     public boolean updateboard(@RequestBody BoardDto boardDto){
         return boardService.updateboard( boardDto );
     }
 
+    // 6. 카테고리 등록
+    @Transactional
+    @PostMapping("/setbcategory")
+    public boolean setbcategory (@RequestBody  BcategoryDto bcategoryDto) {
+        return boardService.setbcategory(bcategoryDto);
+    }
+    // 7. 모든 카테고리 출력
+    @GetMapping("/bcategorylist")
+    public List<BcategoryDto> bcategorylist () {
+        return boardService.bcategorylist();
+    }
 }

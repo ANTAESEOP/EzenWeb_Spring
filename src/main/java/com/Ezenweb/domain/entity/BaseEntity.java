@@ -18,10 +18,9 @@ import java.time.LocalDateTime;
 
 */
 
-
 @Getter @Setter // 롬북
 @MappedSuperclass // 상속을 받을 경우 자식 클래스에게 mapping 정보 전달
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners( AuditingEntityListener.class)
 public class BaseEntity {
     @CreatedDate // 데이터 생성 날짜를 자동 주입
     @Column(updatable = false) // 수정 불가
