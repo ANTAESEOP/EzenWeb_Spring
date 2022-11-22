@@ -7,20 +7,28 @@
 <body>
 <h1> 방명록 쓰기 페이지</h1>
 
-    <input type="text" class="bcname"> <button type="button" onclick="setbcategory()"> 카테고리 추가 </button>
-    <div class="bcategorylistbox"></div>
+    <input type="text" class="tbcname"> <button type="button" onclick="tsetcategory()"> 카테고리 추가 </button>
+
+    <table class="ttable">
+
+
+    </table>
+
+    <div class="tbclistbox"></div>
     <br>
 
-
     <form>
-        제목 : <input type ="text" class="tbtitle"> <br>
         내용 : <input type ="text" class="tbcontent"> <br>
         작성자 : <input type ="text" class="tbuser"> <br>
         <button type="button" onclick="tsetboard()">방명록 등록</button>
     </form>
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="/js/test/tindex.js"></script>
+    <div class="updatemodal">
+
+    </div>
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/js/test/tindex.js"></script>
 
 </body>
 </html>

@@ -56,7 +56,7 @@ public class BoardService {
         if( memberEntity == null ){ return false;}
         // --------------------------------//
         Optional<BcategoryEntity> optional = bcategoryRepository.findById( boardDto.getBcno() );
-        if( !optional.isPresent() ){return false;}
+        if( !optional.isPresent() ){ return false; }
         BcategoryEntity bcategoryEntity = optional.get();
         // --------------------------------//
         BoardEntity boardEntity = boardRepositiry.save(boardDto.toEntity());
@@ -65,8 +65,8 @@ public class BoardService {
             boardEntity.setMemberEntity(memberEntity); // **** !!!! 5. fk 대입
             memberEntity.getBoardEntityList().add(boardEntity); // *** 양방향 [ pk 필드에 fk 연결 ]
             // 2. 카테고리 <--> 게시물 연관관계 대입
-            boardEntity.setBcategoryEntity(bcategoryEntity);
-            bcategoryEntity.getBoardEntityList().add(boardEntity);
+            boardEntity.setBcategoryEntity( bcategoryEntity );
+            bcategoryEntity.getBoardEntityList().add( boardEntity );
             return true;
         } else {
             return false;
@@ -103,7 +103,7 @@ public class BoardService {
     }
 
     @Transactional
-    // 4.
+    // 4. 게시물 삭제
     public boolean deleteboard(int bno) {
         System.out.println(bno);
         Optional<BoardEntity> optional = boardRepositiry.findById(bno);

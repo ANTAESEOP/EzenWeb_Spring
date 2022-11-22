@@ -1,13 +1,11 @@
 package com.Ezenweb.domain.entity.test;
 
-import com.Ezenweb.domain.Dto.BcategoryDto;
-import com.Ezenweb.domain.Dto.BoardDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -18,28 +16,40 @@ public class TboardController {
     @Autowired
     private TbaordService tbaordService;
 
-
     // html 정의
-    @GetMapping("/tblist")
-    public Resource gettlist(){return new ClassPathResource("templates/test/tblist.html");}
+    @GetMapping("/tblistz")
+    public Resource tblistz(){return new ClassPathResource("templates/test/tbwrite.html");}
+    // ------------------------------------------------------------------------------------------------
 
-    @GetMapping("/tbwrite")
-    public Resource gettwrite(){return new ClassPathResource("templates/test/tbwrite.html");}
-
-    // 카테고리 출력
+    // 글 출력
     @GetMapping("tblist")
-    public List <TbcategoryDto> tblist(@RequestParam("bcno") int bcno ) {return tbaordService.tblist(bcno);}
+    public List<TboardDto> tblist(@RequestParam("tbcno") int tbcno ) {return tbaordService.tblist(tbcno);}
+
+    // 모든 카테고리 출력
+    @GetMapping("tbclist")
+    public List<TbcategoryDto> tbclist(){return tbaordService.tbclist();}
 
     // 글등록
     @PostMapping("/tsetboard")
     public boolean tsetboard(@RequestBody TboardDto tboardDto){ return tbaordService.tbwrite(tboardDto); }
 
     // 카테고리 등록
+    @Transactional
     @PostMapping("/tsetcategory")
-    public boolean tsetcategory(@RequestBody TbcategoryDto tbcategoryDto){return tbaordService.tsetcategory(tbcategoryDto);}
+    public boolean tsetcategory(@RequestBody TbcategoryDto tbcategoryDto){
+        return tbaordService.tsetcategory(tbcategoryDto);
+    }
 
+    // 글 삭제
+    @Transactional
+    @DeleteMapping("/bdelete")
+    public boolean bdelete(@RequestParam("tbno") int tbno){return tbaordService.bdelete( tbno );}
 
-
+    @Transactional
+    @PutMapping("/bupdate")
+    public boolean bupdate(@RequestBody TboardDto tboardDto){
+        return tbaordService.bupdate(tboardDto);
+    }
 
 
 

@@ -39,8 +39,7 @@ function list(){
         success : function(re) {
             let html = '<tr> <th> 번호 </th> <th> 이메일 </th> <th> 비밀번호 </th> <th> 전화번호 </th> </tr>';
             re.forEach( (m)=>{
-                html +=
-                '<tr> <td> '+m.mno+'</td> <td> '+m.memail+' </td> <td> '+m.mpassword+' </td> <td> '+m.mphone+' </td> </tr>';
+            html += '<tr> <td> '+m.mno+'</td> <td> '+m.memail+' </td> <td> '+m.mpassword+' </td> <td> '+m.mphone+' </td> </tr>';
             })
             document.querySelector(".mtable").innerHTML = html;
         }

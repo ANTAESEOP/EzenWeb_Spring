@@ -36,8 +36,5 @@ public class TboardEntity extends BaseEntity {
                 .tbcontent(this.tbcontent)
                 .tbuser(this.tbuser)
                 .build();
-
-
-
     }
 }

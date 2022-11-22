@@ -15,12 +15,11 @@ import java.util.List;
 @Setter
 @ToString
 @Builder
-
 public class TbcategoryEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int tbcno; // 카테고리 번호
-    private String tbcname; // 카테고리 이름
+    private int tbcno;          // 카테고리 번호
+    private String tbcname;     // 카테고리 이름
 
     @OneToMany( mappedBy = "testcategoryEntity")
     @Builder.Default
