@@ -2,7 +2,7 @@
 // ----------카테고리 기본값 (전역변수 ) ---------- //
 let bcno = 2;
 
-function setboard(){
+/*function setboard(){ // [ 일반 전송 ]
 
     let data = {
         btitle : document.querySelector('.btitle').value ,
@@ -11,11 +11,34 @@ function setboard(){
         bcno : bcno
     }
 
-    $.ajax({
+    $.ajax({ // http 사용하는 jquery 비동기통신 함수 [ 기본값 : contentType : text/html ]
         url : "/board/setboard",
         type : "post",
         data : JSON.stringify(data) ,
         contentType : "application/json",
+        success : function(re) {
+            if(re == true){
+                alert('글 작성 성공');
+                location.href = "/board/list";
+            }
+            else { alert('글 작성 실패') }
+         }
+    })
+}*/
+
+function setboard(){ // [ 첨부파일 전송 ]
+
+    let boardform = document.querySelector('.boardform')
+    let formdata = new FormData(boardform);
+    formdata.set("bcno" , bcno) // 폼 데이터에 데이터 추가
+                // "name" , data
+    $.ajax({ // http 사용하는 jquery 비동기통신 함수 [ 기본값 : contentType : text/html ]
+        url : "/board/setboard",
+        type : "post",              // Multpart 전송 방법 1 ( 첨부파일 )
+        data : formdata,
+        // content-type : multpart/formed-data <-- 파일 첨부
+        contentType : false,        // Multpart 전송 방법 2 ( 첨부파일 )
+        processData : false,        // Multpart 전송 방법 3 ( 첨부파일 )
         success : function(re) {
             if(re == true){
                 alert('글 작성 성공');

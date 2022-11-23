@@ -41,7 +41,6 @@ public class TboardController {
     }
 
     // 글 삭제
-    @Transactional
     @DeleteMapping("/bdelete")
     public boolean bdelete(@RequestParam("tbno") int tbno){return tbaordService.bdelete( tbno );}
 

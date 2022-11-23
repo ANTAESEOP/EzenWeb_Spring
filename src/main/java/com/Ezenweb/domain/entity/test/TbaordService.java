@@ -100,7 +100,7 @@ public class TbaordService {
     // 5. 게시물 수정
     public boolean bupdate(TboardDto tboardDto){
         Optional<TboardEntity> optional = tBoardRepositiry.findById(tboardDto.getTbno());
-        if( !optional.isPresent() ){
+        if( optional.isPresent() ){
             TboardEntity entity = optional.get();
             entity.setTbcontent(tboardDto.getTbcontent());
             return true;

@@ -11,7 +11,6 @@ import lombok.*;
 
 public class TboardDto {
     private int tbno;
-    private String tbtitle;
     private String tbcontent;
     private String tbuser;
     private int tbcno;

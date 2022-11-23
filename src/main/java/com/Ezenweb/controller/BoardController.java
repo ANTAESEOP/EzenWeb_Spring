@@ -49,9 +49,17 @@ public class BoardController {
         // 1. HTTP 메소드 매핑 : @PostMapping @GetMapping @DeleteMapping @PutMapping
         // 2. HTTP 요청 메소드 메소드 매핑 : @RequestBody @RequestParam @PathVariable
 
-    // 1. 게시물 쓰기 [ 첨부파일 ]
+/*    // 1. 게시물 쓰기 [ 첨부파일 없을 때]
     @PostMapping("/setboard")
     public boolean setboard(@RequestBody BoardDto boardDto){
+        System.out.println("확인" + boardDto.toString() ) ;
+        return boardService.setboard(boardDto);
+    }*/
+
+    // 1. 게시물 쓰기 [ 첨부파일 없을 때]
+    @PostMapping("/setboard")
+    public boolean setboard( BoardDto boardDto ){
+        System.out.println("확인" + boardDto.toString() ) ;
         return boardService.setboard(boardDto);
     }
 
@@ -86,5 +94,11 @@ public class BoardController {
     @GetMapping("/bcategorylist")
     public List<BcategoryDto> bcategorylist () {
         return boardService.bcategorylist();
+    }
+
+    // 8. 첨부파일 다운로드
+    @GetMapping("/filedownload")
+    public void filedownload(@RequestParam("filename") String filename ){
+        boardService.filedownload( filename );
     }
 }

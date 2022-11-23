@@ -2,6 +2,7 @@ package com.Ezenweb.domain.Dto;
 
 import com.Ezenweb.domain.entity.Board.BoardEntity;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,7 +15,10 @@ public class BoardDto {
     private String btitle;      // 게시물 제목
     private String bcontent;    // 게시물 내용
     private int bview;          // 조회수
-    private String bfile;       // 첨부파일
+    private MultipartFile bfile;       // 첨부파일
+        // spring : MultipartFile
+        // jsp : cos 라이브러리 사용
+
     private int mno;            // 작성자 [ 회원번호 - FK ]
     private int bcno;            // 카테고리 [ 카테고리 - FK ]
     private String memail;         // 회원 아이디
@@ -27,7 +31,6 @@ public class BoardDto {
                 .btitle(this.btitle)
                 .bcontent(this.bcontent)
                 .bview(this.bview)
-                .bfile(this.bfile)
                 .build();
     }
 }
