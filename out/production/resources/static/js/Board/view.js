@@ -8,7 +8,7 @@ function getboard(){
         type: "GET" ,
         data : { "bno" : bno } ,
         success: function(re) {
-
+        console.log(re)
         }
     })
 }
@@ -26,6 +26,21 @@ function deleteboard(){ // 글 삭제 함수
             } else {
                 alert('삭제 실패')
             }
+        }
+    })
+}
+function filedownload(){
+    $.ajax({
+        url: "/board/filedownload",
+        type : "get",
+        data : { "filename" : filename },
+        success : function(re) {
+        alert(filename)
+            let html = '';
+            re.forEach( f => {
+                html = '<a href="http://localhost:8080/board/filedownload?filename='+f.filename+'"> 첨부파일 </a>'
+            })
+            document.querySelector(".file").innerHTML = html;
         }
     })
 }

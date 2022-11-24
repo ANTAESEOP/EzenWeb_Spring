@@ -31,7 +31,7 @@ public class BoardEntity extends BaseEntity {
     @ColumnDefault( "0" )       // JPA insert 할 경우 default
     private int bview;          // 조회수
 
-    @Column                     // ( noy null )
+    @Column
     private String bfile;       // 첨부파일
 
     // 연관관계 [ 회원번호[pk] <--양방향--> 게시물번호[fk]
@@ -56,6 +56,7 @@ public class BoardEntity extends BaseEntity {
                 .bcontent(this.bcontent)
                 .bview(this.bview)
                 .memail(this.memberEntity.getMemail())
+                .bfilename(this.bfile)
                 .build();
     }
 

@@ -85,6 +85,26 @@ public class BoardService {
 
         } catch (Exception e) {System.out.println(e);}
     }
+    // * 첨부파일 업로드 [ 1. 쓰기메소드 2. 수정메소드
+    public boolean fileupload( BoardDto boardDto , BoardEntity boardEntity){
+        if( boardDto.getBfile() != null ) {
+            // * 업로드 된 파일의 이름 [ 문제점 : 파일명 중복 ]
+            String uuid = UUID.randomUUID().toString(); // 1. 난수 생성
+            String filename = uuid + "_" + boardDto.getBfile().getOriginalFilename(); // 2. 난수 + 파일명
+            // * 첨부파일 명 db 에 등록
+            boardEntity.setBfile(filename); // 해당 파일명 엔티티에 저장 // 3. 난수 + 파일명 엔티티 에 저장
+
+            // * 첨부파일 업로드 // 3. 저장 할 경로 [ 전역변수 ]
+            try {
+                // 4. 경로 + 파일명 [ 객체화 ]
+                File uploadfile = new File(path + filename);  // 4. 경로 + 파일명 [ 객체화 ]
+                boardDto.getBfile().transferTo(uploadfile);         // 5. 해당 객체 경로 로 업로드
+            } catch (Exception e) {
+                System.out.println(e + "첨부파일 업로드 실패");
+            }
+            return true;
+        } else { return false; }
+    }
 
     // 1. 게시물 쓰기
     @Transactional
@@ -100,28 +120,7 @@ public class BoardService {
         BoardEntity boardEntity = boardRepositiry.save(boardDto.toEntity());
         if (boardEntity.getBno() != 0) {         // 2. 생성된 entity의 게시물번호가 0이 아니면 성공
 
-            // 1. MultpartFile 인터페이스
-                // .getOriginalFilename() : 해당 인터페이스에 연결( 주소 )된 파일의 이름 호출
-                // .transferTo() : 파일 이동 [ 사용자pc --> 개발자pc ]
-                    // .transferTo( 파일 객체 )
-                    // File : java 외 파일을 객체화 클래스
-                        // new File("경로") : 해당 경로의 파일을 객체화
-            if( boardDto.getBfile() != null ) {
-                // * 업로드 된 파일의 이름 [ 문제점 : 파일명 중복 ]
-                String uuid = UUID.randomUUID().toString(); // 1. 난수 생성
-                String filename = uuid + "_" + boardDto.getBfile().getOriginalFilename(); // 2. 난수 + 파일명
-                // * 첨부파일 명 db 에 등록
-                boardEntity.setBfile(filename); // 해당 파일명 엔티티에 저장 // 3. 난수 + 파일명 엔티티 에 저장
-
-                // * 첨부파일 업로드 // 3. 저장 할 경로 [ 전역변수 ]
-                try {
-                    // 4. 경로 + 파일명 [ 객체화 ]
-                    File uploadfile = new File(path + filename);  // 4. 경로 + 파일명 [ 객체화 ]
-                    boardDto.getBfile().transferTo(uploadfile);         // 5. 해당 객체 경로 로 업로드
-                } catch (Exception e) {
-                    System.out.println(e + "첨부파일 업로드 실패");
-                }
-            }
+            fileupload( boardDto , boardEntity );
 
             // 1. 회원 <--> 게시물 연관관계 대입
             boardEntity.setMemberEntity(memberEntity); // **** !!!! 5. fk 대입
@@ -171,6 +170,11 @@ public class BoardService {
         Optional<BoardEntity> optional = boardRepositiry.findById(bno);
         if (optional.isPresent()) {
             BoardEntity entity = optional.get();
+            // 첨부파일 같이 삭제
+            if(entity.getBfile() != null){
+                File file = new File(path + entity.getBfile());
+                if( file.exists() ){ file.delete(); }
+            }
             boardRepositiry.delete(entity); // 찾은 엔티티를 삭제한다.
             return true;
         } else {
@@ -179,13 +183,24 @@ public class BoardService {
     }
 
     @Transactional
-    // 5. 게시물 수정 [ 첨부파일 ]
+    // 5. 게시물 수정 [ 첨부파일 1. 첨부파일 있을때 -> 첨부파일 변경 , 2. 첨부파일 없을대 -> 첨부파일 추가]
     public boolean updateboard(BoardDto boardDto) {
         // 1. DTO 에서 수정할 PK번호 이용해서 엔티티 찾기
         Optional<BoardEntity> optional = boardRepositiry.findById(boardDto.getBno());
-        // 2.
         if (optional.isPresent()) {
             BoardEntity entity = optional.get();
+
+                // 1. 수정할 첨부파일이 있을때 ---> 기존 첨부파일 삭제 후 ---> 새로운 첨부파일 업로드 , db 수정한다.
+                if( boardDto.getBfile() != null ){ // boardDto : 수정할 정보 boardEntity : 원본 [ db 테이블 ]
+                    if(entity.getBfile() != null) {// 기존 첨부파일 있을때
+                        File file = new File(path + entity.getBfile());
+                        if (file.exists()) { // 존재하면
+                            file.delete();  // 파일삭제
+                        }
+                        entity.setBfile(null); // db 처리
+                    }
+                    fileupload(boardDto , entity); // 기존 첨부파일 없을때
+                }
             // * 수정처리 [ 메소드 별도 존재 X / 엔티티 객체 <--매핑--> 레코드 / 엔티티 객체 필드를 수정 : @Transactional ]
             entity.setBtitle(boardDto.getBtitle());
             entity.setBcontent(boardDto.getBcontent());
@@ -237,4 +252,11 @@ public class BoardService {
     * 첨부파일 명 db 에 등록
 */
 
+
+// 1. MultpartFile 인터페이스
+// .getOriginalFilename() : 해당 인터페이스에 연결( 주소 )된 파일의 이름 호출
+// .transferTo() : 파일 이동 [ 사용자pc --> 개발자pc ]
+// .transferTo( 파일 객체 )
+// File : java 외 파일을 객체화 클래스
+// new File("경로") : 해당 경로의 파일을 객체화
 

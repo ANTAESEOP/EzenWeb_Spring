@@ -3,14 +3,12 @@ package com.Ezenweb.controller;
 import com.Ezenweb.domain.Dto.BcategoryDto;
 import com.Ezenweb.domain.Dto.BoardDto;
 import com.Ezenweb.service.BoardService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController // @Controller + @ResponseBody = @RestController [ 컴포넌트 주입 ]
@@ -80,7 +78,7 @@ public class BoardController {
     }
     // 5. 게시물 수정 [ 첨부파일 ]
     @PutMapping("/updateboard")
-    public boolean updateboard(@RequestBody BoardDto boardDto){
+    public boolean updateboard( BoardDto boardDto){
         return boardService.updateboard( boardDto );
     }
 

@@ -1,10 +1,9 @@
-let tbcno = 3;
+let tbcno = 0;
 tblist()
 
 function tsetboard(){ // 방명록 등록
     let data = {
-        tbtitle : document.querySelector('.tbtitle').value,
-        tbcontent : document.querySelector('.tbcontent').value,
+        tbcontent : document.querySelector('.tbcontent').value ,
         tbuser : document.querySelector('.tbuser').value ,
         tbcno : tbcno
     }

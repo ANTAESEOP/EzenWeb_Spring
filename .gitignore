@@ -2,3 +2,27 @@
 /.gradle/
 /build/
 /build/classes/java/main/
+/src/main/frontend/.gitignore
+/src/main/resources/static/bupload/705a8e3c-cd45-4f12-8fc5-14a59a89458e_파일 업로드 + 파일 다운로드.PNG
+/src/main/resources/static/bupload/878ba5e2-2383-468f-b89c-20e7ba4127f4_파일 업로드 + 파일 다운로드.PNG
+/src/main/resources/static/bupload/129557e3-f018-4f92-bea3-0c1056d1e928_파일 업로드 + 파일 다운로드.PNG
+/src/main/frontend/src/App.css
+/src/main/frontend/src/App.js
+/src/main/frontend/src/App.test.js
+/src/main/frontend/public/favicon.ico
+/src/main/frontend/src/index.css
+/src/main/frontend/public/index.html
+/src/main/frontend/src/index.js
+/src/main/frontend/src/logo.svg
+/src/main/frontend/public/logo192.png
+/src/main/frontend/public/logo512.png
+/src/main/frontend/public/manifest.json
+/src/main/frontend/package.json
+/src/main/frontend/package-lock.json
+/src/main/frontend/README.md
+/src/main/frontend/src/reportWebVitals.js
+/src/main/frontend/public/robots.txt
+/src/main/frontend/src/setupTests.js
+/out/production/resources/static/bupload/705a8e3c-cd45-4f12-8fc5-14a59a89458e_파일 업로드 + 파일 다운로드.PNG
+/out/production/resources/static/bupload/878ba5e2-2383-468f-b89c-20e7ba4127f4_파일 업로드 + 파일 다운로드.PNG
+/out/production/resources/static/bupload/129557e3-f018-4f92-bea3-0c1056d1e928_파일 업로드 + 파일 다운로드.PNG
