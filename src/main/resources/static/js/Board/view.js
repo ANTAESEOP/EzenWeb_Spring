@@ -8,7 +8,12 @@ function getboard(){
         type: "GET" ,
         data : { "bno" : bno } ,
         success: function(re) {
-        console.log(re)
+            console.log(re)
+            document.querySelector('.bno').innerHTML = re.bno;
+            document.querySelector('.bcontent').innerHTML = re.bcontent;
+            document.querySelector('.memail').innerHTML = re.memail;
+            let html = ' <a href="http://localhost:8080/board/filedownload?filename='+re.bfilename+'"> '+re.bfilename+' </a>';
+            document.querySelector(".file").innerHTML = html;
         }
     })
 }
@@ -29,18 +34,19 @@ function deleteboard(){ // 글 삭제 함수
         }
     })
 }
-function filedownload(){
+
+function filedownload(F){
     $.ajax({
-        url: "/board/filedownload",
+        url: `/board/filedownload?filename=${F}`,
         type : "get",
-        data : { "filename" : filename },
         success : function(re) {
-        alert(filename)
-            let html = '';
+//        alert(filename)
+            let html = '<a href="http://localhost:8080/board/filedownload?filename='+f.filename+'"> '+f.filename+' </a>';
+            console.log(html)
             re.forEach( f => {
-                html = '<a href="http://localhost:8080/board/filedownload?filename='+f.filename+'"> 첨부파일 </a>'
             })
-            document.querySelector(".file").innerHTML = html;
+            //document.querySelector(".file").innerHTML = html;
         }
     })
 }
+

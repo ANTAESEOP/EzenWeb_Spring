@@ -150,7 +150,7 @@ public class BoardService {
         return dlist; // 4. 변환된 리스트 dlist 변환
     }
 
-    // 3. 게시물 개별 조회
+    // 3. 게시물 개별 조회 ******** object 로 값 보냄
     @Transactional
     public BoardDto getboard(int bno) {
         // 1. 입력받은 게시물 번호로 엔티티 검색 [ Optional ]
