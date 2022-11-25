@@ -189,7 +189,6 @@ public class BoardService {
         Optional<BoardEntity> optional = boardRepositiry.findById(boardDto.getBno());
         if (optional.isPresent()) {
             BoardEntity entity = optional.get();
-
                 // 1. 수정할 첨부파일이 있을때 ---> 기존 첨부파일 삭제 후 ---> 새로운 첨부파일 업로드 , db 수정한다.
                 if( boardDto.getBfile() != null ){ // boardDto : 수정할 정보 boardEntity : 원본 [ db 테이블 ]
                     if(entity.getBfile() != null) {// 기존 첨부파일 있을때
@@ -227,7 +226,20 @@ public class BoardService {
         entityList.forEach(e -> dtolist.add( e.toDto() ) );
         return dtolist;
     }
+    // 8. 조회수 증가
+    public boolean bviewup(BoardDto boardDto) {
+        Optional<BoardEntity> optional = boardRepositiry.findById(boardDto.getBno());
+        if (optional.isPresent()) {
+            BoardEntity boardEntity = optional.get();
+            boardDto.setBview(boardDto.getBview() + 1 );
+            boardEntity.setBview(boardDto.getBview() +1 );
+            return true;
+        }
+        return false;
+    }
 }
+
+
 
     // 화살표함수 [ 람다식 표현 ] js : ( 인수 ) => { 실행코드 }     java -> { 실행코드 }
     /*      1. 리스트를 순회하는 방법 3가지

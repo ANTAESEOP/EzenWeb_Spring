@@ -8,10 +8,11 @@ function getlist(){
         type : "get" ,
         data : { "bcno" : bcno },
         success: function(list) {
+        console.log(list)
         let html = '<tr> <th> 번호 </th> <th> 제목 </th> <th> 작성자 </th> <th> 첨부파일 </th> <th> 조회수 </th> </tr>';
             list.forEach ( ( b ) => {
                 html +=
-                    '<tr> <td> <a href="/board/view?bno='+b.bno+'" onclick="getboard('+b.bno+')" </a> '+b.bno+' </td> <td> '+b.btitle+' </td> <td> '+b.memail+' </td> <td> '+b.bfile+' </td> <td> '+b.bview+' </td> </tr>';
+                    '<tr> <td> <a href="/board/view?bno='+b.bno+'" onclick="getboard('+b.bno+') ; bviewup('+b.bno+')" </a> '+b.bno+' </td> <td> '+b.btitle+' </td> <td> '+b.memail+' </td> <td> '+b.bfilename+' </td> <td> '+b.bview+' </td> </tr>';
                 })
                 document.querySelector(".btable").innerHTML = html;
             }
@@ -30,7 +31,6 @@ function getloginMno (){
         url : "/member/getloginMno",
         type : "get",
         success : function(re) {
-            alert(re)
             let headerbox = '';
             if( re == "0" ){
                 headerbox+= ''; // 로그인 안하면
@@ -61,4 +61,16 @@ function bcategorylist(){
 }
 // 4. 카테고리를 선택했을때 선택된 카테고리 번호 변경
 function bcnochange ( cno ) { bcno = cno; alert( bcno ); getlist()}
+
+function bviewup(bno){
+    $.ajax({
+        url: '/board/bviewup',
+        type: 'PUT',
+        success : function(re) {
+            if(re == true){
+            alert('조회수 증가 성공')}
+        }
+    })
+alert('z')
+}
 

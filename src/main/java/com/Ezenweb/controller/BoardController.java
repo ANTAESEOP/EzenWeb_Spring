@@ -99,4 +99,7 @@ public class BoardController {
     public void filedownload(@RequestParam("filename") String filename ){
         boardService.filedownload( filename );
     }
+    // 9. 조회수 증가
+    @PutMapping("/bviewup")
+    public boolean bviewup( BoardDto boardDto ){ return boardService.bviewup(boardDto); }
 }

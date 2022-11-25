@@ -14,6 +14,7 @@ function getboard(){
             document.querySelector('.memail').innerHTML = re.memail;
             let html = ' <a href="http://localhost:8080/board/filedownload?filename='+re.bfilename+'"> '+re.bfilename+' </a>';
             document.querySelector(".file").innerHTML = html;
+            re.bview +1;
         }
     })
 }
@@ -31,21 +32,6 @@ function deleteboard(){ // 글 삭제 함수
             } else {
                 alert('삭제 실패')
             }
-        }
-    })
-}
-
-function filedownload(F){
-    $.ajax({
-        url: `/board/filedownload?filename=${F}`,
-        type : "get",
-        success : function(re) {
-//        alert(filename)
-            let html = '<a href="http://localhost:8080/board/filedownload?filename='+f.filename+'"> '+f.filename+' </a>';
-            console.log(html)
-            re.forEach( f => {
-            })
-            //document.querySelector(".file").innerHTML = html;
         }
     })
 }
