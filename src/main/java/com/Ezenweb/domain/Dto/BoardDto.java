@@ -19,9 +19,12 @@ public class BoardDto {
         // spring : MultipartFile
         // jsp : cos 라이브러리 사용
     private String bfilename; // 첨부파일 출력용
-    private int mno;            // 작성자 [ 회원번호 - FK ]
     private int bcno;            // 카테고리 [ 카테고리 - FK ]
     private String memail;         // 회원 아이디
+
+    private int startbtn;
+    private int endbtn;
+
 
     // 1. 형번환
     public BoardEntity toEntity() {

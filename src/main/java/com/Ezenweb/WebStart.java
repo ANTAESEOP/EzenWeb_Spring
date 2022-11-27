@@ -23,7 +23,7 @@ public class WebStart {
         1. @SpringBootApplication : 컴포넌트 스캔
             컴포넌트 사용하는 클래스들을 스캔 빈 [ 스프링 메모리 ] 등록
                 1. @Controller
-                2. @Restcontroller
+                2. @RestController
         gradle : 빌드를 가져 와 주기만
         어노테이션 : 실행 시키는 것
 */

@@ -17,13 +17,16 @@ import javax.persistence.*;
 public class TboardEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  int tbno;
+    private int tbno;
 
     @Column(nullable = false , columnDefinition = "TEXT")
     private String tbcontent;    // 게시물 내용
 
     @Column(nullable = false)   // ( noy null )
     private String tbuser;      // 작성자
+
+    @Column
+    private String tbfile;
 
     @ManyToOne
     @JoinColumn(name="tbcno")
@@ -35,6 +38,7 @@ public class TboardEntity extends BaseEntity {
                 .tbno(this.tbno)
                 .tbcontent(this.tbcontent)
                 .tbuser(this.tbuser)
+                .tbfilename(this.tbfile)
                 .build();
     }
 }

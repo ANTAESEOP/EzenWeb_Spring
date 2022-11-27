@@ -1,17 +1,36 @@
 let tbcno = 0;
 tblist()
 
-function tsetboard(){ // 방명록 등록
-    let data = {
-        tbcontent : document.querySelector('.tbcontent').value ,
-        tbuser : document.querySelector('.tbuser').value ,
-        tbcno : tbcno
+/*
+    function tsetboard(){ // 방명록 등록 [ 첨부파일 X ]
+        let data = {
+            tbcontent : document.querySelector('.tbcontent').value ,
+            tbuser : document.querySelector('.tbuser').value ,
+            tbcno : tbcno
+        }
+        $.ajax({
+            url: '/tboard/tsetboard' ,
+            type: 'POST' ,
+            data : JSON.stringify(data) ,
+            contentType : "application/json" ,
+            success: function(re) { alert( re ); tblist(); }
+        })
     }
+*/
+
+function tsetboard(){ // 방명록 등록 [ 첨부파일 O ]
+
+    let boardform = document.querySelector('.boardform')
+    let formdata = new FormData(boardform);
+
+    formdata.set( "tbcno" , tbcno )
+
     $.ajax({
-        url: '/tboard/tsetboard' ,
-        type: 'POST' ,
-        data : JSON.stringify(data) ,
-        contentType : "application/json" ,
+        url: "/tboard/tsetboard" ,
+        type: "post" ,          // Multipart 전송 방법 1
+        data : formdata ,
+        contentType : false ,   // Multipart 전송 방법2( 첨부파일 )
+        processData : false ,   // Multipart 전송 방법3( 첨부파일 )
         success: function(re) { alert( re ); tblist(); }
     })
 }
@@ -51,10 +70,11 @@ function tblist(){
         type : "get" ,
         data : { "tbcno" : tbcno },
         success : function(re){
-            let html = '<tr> <th> 번호 </th> <th> 작성자 </th> <th> 내용 </th> </tr>';
+            console.log(re)
+            let html = '<tr> <th> 번호 </th> <th> 작성자 </th> <th> 내용 </th> <th> 첨부파일 </th> </tr>';
             re.forEach( ( b ) => {
             html +=
-                '<tr> <td onclick="tgetboard('+b.tbno+')"> '+b.tbno+' </td> <td> '+b.tbcontent+' </td> <td> '+b.tbuser+' </td> <td> <button type="button" onclick="bdelete()"> 삭제하기 </button> </td> <td> <button type="button" onclick="bupdatemodal('+b.tbno+')"> 수정하기 </button> </td> </tr>'
+                '<tr> <td onclick="tgetboard('+b.tbno+')"> '+b.tbno+' </td> <td> '+b.tbcontent+' </td> <td> '+b.tbuser+' </td> <td> '+b.tbfile+' </td> <td> <button type="button" onclick="bdelete()"> 삭제하기 </button> </td> <td> <button type="button" onclick="bupdatemodal('+b.tbno+')"> 수정하기 </button> </td> </tr>'
             })
             document.querySelector(".ttable").innerHTML = html;
         }

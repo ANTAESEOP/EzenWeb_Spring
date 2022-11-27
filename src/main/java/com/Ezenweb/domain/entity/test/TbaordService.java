@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class TbaordService {
@@ -16,6 +18,8 @@ public class TbaordService {
     private TBoardRepositiry tBoardRepositiry;
 
     @Autowired TBcategoryRepositiry tBcategoryRepositiry;
+
+    String path = "C:\\Users\\안태섭\\IdeaProjects\\EzenWeb_Spring\\src\\main\\resources\\static\\js\\tbupload\\";
 
 /*
     @Transactional
@@ -30,16 +34,37 @@ public class TbaordService {
     }
 */
 
+    // 첨부파일 업로드
+    @Transactional
+    public boolean fileupload(TboardDto tboardDto , TboardEntity tboardEntity){
+        if( tboardDto.getTbfile() != null ){
+            String uuid = UUID.randomUUID().toString(); // 난수를 생성한다. // 파일 명이 같을 수 있는 경우의수 대비
+            String filename = uuid + "_" + tboardDto.getTbfile().getOriginalFilename(); // filename 은 난수_파일명
+            tboardEntity.setTbfile(filename); // 파일명 엔티티에 저장
+            try{
+                File uploadfile = new File(path + filename); // 경로 + 파일명을 객체화
+                tboardDto.getTbfile().transferTo(uploadfile); // 해당 객체 경로로 업로드 한다.
+            }catch (Exception e){
+                System.out.println(e + " 첨부파일 업로드 실패 ");
+            }
+            return true;
+        }else{return false;}
+    }
+
+
     // 글등록
     @Transactional
     public boolean tbwrite(TboardDto tboardDto){
 
         Optional<TbcategoryEntity> optional = tBcategoryRepositiry.findById( tboardDto.getTbcno() );
-        if( !optional.isPresent()){return false;}
+        if( !optional.isPresent()){ return false; }
         TbcategoryEntity tbcategoryEntity = optional.get();
 
         TboardEntity tboardEntity = tBoardRepositiry.save(tboardDto.toEntity());
         if(tboardEntity.getTbno() != 0){
+
+            fileupload(tboardDto , tboardEntity ); // 업로드 함수 실행.
+
         tboardEntity.setTestcategoryEntity(tbcategoryEntity);
         tbcategoryEntity.getTboardEntityList().add(tboardEntity);
             return true;

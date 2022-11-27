@@ -31,7 +31,7 @@ public class TboardController {
 
     // 글등록
     @PostMapping("/tsetboard")
-    public boolean tsetboard(@RequestBody TboardDto tboardDto){ return tbaordService.tbwrite(tboardDto); }
+    public boolean tsetboard( TboardDto tboardDto ){ return tbaordService.tbwrite( tboardDto ); } // 첨부파일이 있을때 @RequestBody 지우기
 
     // 카테고리 등록
     @Transactional
