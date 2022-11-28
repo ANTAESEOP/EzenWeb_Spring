@@ -1,4 +1,5 @@
-function getmember(){
+/*
+function getmember(){  [ 시큐리티 사용시 필요없음 ]
     let info = {
         memail : document.querySelector('.memail').value ,
         mpassword : document.querySelector('.mpassword').value
@@ -14,4 +15,4 @@ function getmember(){
             } else { alert('로그인에 실패했습니다.')}
         }
     })
-}
+}*/

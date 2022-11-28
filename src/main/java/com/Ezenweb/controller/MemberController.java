@@ -48,11 +48,11 @@ public class MemberController {
         return result;  // 2. 반환
     }
 
-    @PostMapping("/getmember") // 2. 로그인 기능
+/*    @PostMapping("/getmember") // 2. 로그인 기능  [ 시큐리티 사용시 필요없음 ]
     public int getmember(@RequestBody MemberDto memberDto) {
         int result = memberService.getmember(memberDto); // 1. 서비스[ 비지니스 로직 ] 호출
         return result;
-    }
+    }*/
 
     @GetMapping("getpassword") // 3. 비밀번호 찾기 기능
     public String findpassword(@RequestParam("memail") String memail) {

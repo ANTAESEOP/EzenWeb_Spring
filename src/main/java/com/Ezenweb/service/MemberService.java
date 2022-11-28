@@ -53,8 +53,8 @@ import java.util.Random;
         return entity.getMno();
     }
 
-    // 2. 로그인
-    @Transactional
+    // 2. 로그인 [ 시큐리티 사용시 필요없음 ]
+   /* @Transactional
     public int getmember(MemberDto memberDto ){
         // 1. Dao 처리 [ select ]
         // 1. 모든 엔티티=레코드 호출 [ select * from member ]
@@ -73,7 +73,7 @@ import java.util.Random;
             }
         }
         return 0; // 아이디가 틀림
-    }
+    }*/
 
     // 3. 비밀번호 찾기 기능
     @Transactional
