@@ -67,10 +67,7 @@ function bviewup(bno){
         url: '/board/bviewup',
         type: 'PUT',
         success : function(re) {
-            if(re == true){
-            alert('조회수 증가 성공')}
         }
     })
-alert('z')
 }
 
