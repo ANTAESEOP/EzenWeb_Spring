@@ -256,8 +256,6 @@ public class BoardService {
     }
 }
 
-
-
     // 화살표함수 [ 람다식 표현 ] js : ( 인수 ) => { 실행코드 }     java -> { 실행코드 }
     /*      1. 리스트를 순회하는 방법 3가지
             for (int i = 0; i < entityList.size(); i++) {

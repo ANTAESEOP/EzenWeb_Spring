@@ -22,8 +22,6 @@ function Signup(props) {
         axios // 3. axios 비동기통신 이용한 서버[spring] 통신
             .post( "http://localhost:8080/member/setmember" , info ) // 요청
             .then( res => { alert( res.data ) } ) // 응답
-
-
     }
     // 2. 인증코드 요청 함수
     const getauth = () => { alert("클릭")}
