@@ -6,14 +6,14 @@ function getloginMno (){
         success : function(re) {
             alert(re)
             let headerbox = '';
-            if( re == "0" ){
+            if( re == "" ){
                 headerbox+=
                         ' <a href="/member/signup"><button type="button" class="btn btn-primary"> 회원가입 </button></a>'+
                         ' <a href="/member/login"><button type="button" class="btn btn-primary"> 로그인 </button></a>'
             }
             else{
                 headerbox +=
-                        ' <button type="button" onclick ="logout()" class="btn btn-primary"> 로그아웃</button> </a>'+
+                        ' <a href="/member/logout"> <button type="button" class="btn btn-primary"> 로그아웃 </button> </a>'+
                         ' <a href="/member/findpassword"><button type="button" class="btn btn-primary"> 비밀번호 찾기 </button> </a>'+
                         ' <a href="/member/update"><button type="button" class="btn btn-primary"> 비밀번호 수정 </button> </a>'+
                         ' <a href="/member/delete"><button type="button" class="btn btn-primary"> 회원탈퇴 </button> </a>'
@@ -23,13 +23,13 @@ function getloginMno (){
     })
 }
 
-function logout(){
+/*function logout(){
     $.ajax({
         url : "/member/logout",
         type : "get",
         success : function(re) {window.location.reload()}
     })
-}
+}*/
 list() // list 함수 실행
 // 회원 목록
 function list(){

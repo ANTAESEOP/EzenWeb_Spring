@@ -29,8 +29,13 @@ import java.util.List;
 
         @OneToMany(mappedBy = "memberEntity") // [ 1 : N ] PK 에 해당 어노테이션 mappedBy = "fk")
         @Builder.Default // 빌더 사용시 해당 필드의 초기값 설정
-        private List<BoardEntity> boardEntityList
-                = new ArrayList<>();
+        private List<BoardEntity> boardEntityList = new ArrayList<>();
+
+        @Column // 회원등급
+        private String mrol;
+
+
+
         // 2. 생성자 [ 롬복으로 사용 ]
         // 3. 메소드 [ 롬복으로 사용 ]
         // * 엔티티 --> Dto
