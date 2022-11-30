@@ -4,11 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import Signup from './Component/member/Signup'      // Signup.jsx 사용하겠다.
+
 // 1. 사용할 컴포넌트 호출 [ import 컴포넌트명 from 파일명 ]
 import Library from './chapter3/Library'            // Library.jsx 사용하겠다.
 import Clock from './chapter4/Clock'                // Clock.jsx 사용하겠다.
 import CommentList from './chapter5/CommentList'    // CommentList.jsx 사용하겠다.
-import Signup from './Component/member/Signup'             // Signup.jsx 사용하겠다.
 
 // 2. Dom 컨테이너 [ public-> index.html 안에 있는 태그 ]
 const root = ReactDOM.createRoot(document.getElementById('root'));
