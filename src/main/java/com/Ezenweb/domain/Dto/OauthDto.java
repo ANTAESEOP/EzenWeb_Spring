@@ -51,12 +51,27 @@ public class OauthDto {
                     .build();
         }
         // 2. 네이버 객체 생성 메소드
-        public static OauthDto ofNaver( String registrationId , String oauth2UserInfo , Map<String , Object> Attributes ){
-            return null;
+        public static OauthDto ofNaver( String registrationId , String oauth2UserInfo , Map<String , Object> attributes ){
+            System.out.println("naver attributes : " + attributes);
+            Map<String , Object> response = (Map<String, Object>) attributes.get( oauth2UserInfo );
+            return OauthDto.builder()
+                    .memail((String) response.get("email"))
+                    .mname((String) response.get("name"))
+                    .registrationId( registrationId)
+                    .oauth2UserInfo( oauth2UserInfo )
+                    .attributes( attributes )
+                    .build();
         }
         // 3. 구글 객체 생성 메소드
-        public static OauthDto ofGoogle( String registrationId , String oauth2UserInfo , Map<String , Object> Attributes ){
-            return null;
+        public static OauthDto ofGoogle( String registrationId , String oauth2UserInfo , Map<String , Object> attributes ){
+            System.out.println("Google attributes : " + attributes);
+            return OauthDto.builder()
+                    .memail((String) attributes.get("name"))
+                    .mname((String) attributes.get("name"))
+                    .registrationId( registrationId )
+                    .oauth2UserInfo( oauth2UserInfo )
+                    .attributes( attributes )
+                    .build();
         }
     } // class End
 
