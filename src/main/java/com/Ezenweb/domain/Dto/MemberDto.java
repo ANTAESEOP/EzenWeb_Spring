@@ -4,8 +4,10 @@ import com.Ezenweb.domain.entity.Member.MemberEntity;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 
 @NoArgsConstructor // 빈 생성자
@@ -14,13 +16,20 @@ import java.util.Set;
 @Setter // 필드들의 set 메소드 주입
 @ToString // 객체내 필드 정보 확인 ToString 메소드 주입
 @Builder // 객체 생성 안전성 보장 [ 매개변수 개수 / 순서 무관 ]
-public class MemberDto implements UserDetails {
+
+public class MemberDto implements UserDetails , OAuth2User {
+
+
+
+
     private int mno;
     private String memail;
     private String mpassword;
     private String mphone; // 회원 전화번호 필드
     private Set<GrantedAuthority> authorities; // 인증 권한
+    private Map<String , Object> attributes;
             // GrantedAuthority : 권한 [ 토큰 ]
+
     // * dto ---> entity 변환
     public MemberEntity toEntity(){
         return MemberEntity.builder()
@@ -31,6 +40,7 @@ public class MemberDto implements UserDetails {
                 .build();
     }
 
+    /*---------------------UserDetails---------------------*/
     public void setAuthorities(Set<GrantedAuthority> authorities){
         this.authorities=authorities;
     }
@@ -66,5 +76,16 @@ public class MemberDto implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+
+    @Override
+    public String getName() {
+        return this.memail;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
     }
 }
