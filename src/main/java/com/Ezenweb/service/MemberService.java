@@ -57,14 +57,25 @@ import java.util.*;
 
         // 4. Dto 처리
         OauthDto oauthDto = OauthDto.of( registrationId , oauth2UserInfo , oAuth2User.getAttributes() );
-        // *. DB처리
-            // 권한부여
+
+        // *. DB 처리
+        // 1. 이메일로 엔티티 검색 [ 가입 OR 기존회원 구분]
+        Optional< MemberEntity > optional =
+                memberRepository.findByMemail( oauthDto.getMemail() );
+
+        MemberEntity memberEntity = null;
+        if( optional.isPresent() ) { // 기존회원이면 // Optional 클래스 [ null 예외처리 방지 ]
+            memberEntity = optional.get();
+        } else { // 기존회원이 아니면 [ 가입 ]
+            memberEntity = memberRepository.save( oauthDto.toEntity() );
+        }
+        // 권한부여
         Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority("kakaoUser") );
+        authorities.add( new SimpleGrantedAuthority( memberEntity.getMrol()) );
 
         // 5. 반환
         MemberDto memberDto = new MemberDto();
-            memberDto.setMemail(oauthDto.getMemail() );
+            memberDto.setMemail( oauthDto.getMemail() );
             memberDto.setAuthorities( authorities );
             memberDto.setAttributes( oauthDto.getAttributes() );
         return memberDto;
@@ -82,13 +93,13 @@ import java.util.*;
    // * 로그인된 엔티티 호출
     // 1. 로그인 정보 확인 [ 세션 = loginMno ]
     public MemberEntity getEntity() {
-        Object object = request.getSession().getAttribute("loginMno");
-            if (object == null) { return null;}
+        Object object = request.getSession().getAttribute( "loginMno" );
+            if ( object == null ) { return null;}
         // 2. 로그인 된 회원정보 호출
-        int mno = (Integer) object; // 로그인된 회원 번호
+        int mno = ( Integer ) object; // 로그인된 회원 번호
         // 3. 회원번호 --> 회원정보 호출
-        Optional<MemberEntity> optional = memberRepository.findById(mno);
-        if (!optional.isPresent()) {return null;}
+        Optional<MemberEntity> optional = memberRepository.findById( mno );
+        if ( !optional.isPresent() ) { return null; }
         // 4. 로그인된 회원의 엔티티
         MemberEntity memberEntity = optional.get();
         return memberEntity;
@@ -96,7 +107,7 @@ import java.util.*;
 
     // 1. 회원가입 기능
     @Transactional
-    public int setmember(MemberDto memberDto) {
+    public int setmember( MemberDto memberDto ) {
         // 암호화 :
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.setMpassword( passwordEncoder.encode(memberDto.getPassword() ) );
@@ -106,7 +117,7 @@ import java.util.*;
             // memberRepository.save( 엔티티 객체 ) : 해당 엔티티 객체가 insert 생성된 엔티티객체 반환
 
         // 회원 등급 넣어주기
-        entity.setMrol("user");
+        entity.setMrol( "user" );
 
         // 2. 결과 반환 [ 생성된 엔티티의 pk값 반환 ]
         return entity.getMno();
@@ -156,10 +167,10 @@ import java.util.*;
 
     // 3. 비밀번호 찾기 기능
     @Transactional
-    public String findpassword(String memail) {
+    public String findpassword( String memail ) {
         List<MemberEntity> entityList = memberRepository.findAll();
-        for (MemberEntity entity : entityList) {
-            if (entity.getMemail().equals(memail)) {
+        for ( MemberEntity entity : entityList ) {
+            if (entity.getMemail().equals( memail ) ) {
                 return entity.getMpassword();
             }
         }
@@ -168,23 +179,23 @@ import java.util.*;
 
     // 4. 회원탈퇴
     @Transactional
-    public int setdelete(String mpassword) {
+    public int setdelete( String mpassword ) {
         // 1. 로그인된 회원의 엔티티 필요!!
         // 1. 세션 호출
-        Object object = request.getSession().getAttribute("loginMno");
+        Object object = request.getSession().getAttribute( "loginMno" );
         // 2. 세션 확인
-        if (object != null) { // 만약에 세션이 null 이 아니면 로그인 됨
-            int mno = (Integer) object; // 형변환 [ object --> int ]
+        if ( object != null ) { // 만약에 세션이 null 이 아니면 로그인 됨
+            int mno = ( Integer ) object; // 형변환 [ object --> int ]
             // 3. 세션에 있는 회원번호[PK] 로 리포지토리 찾기 [ findById : select * from member where mno = ? ]
             Optional<MemberEntity> optional = memberRepository.findById(mno);
-            if (optional.isPresent()) { // optional객체내 엔티티 존재 여부 판단
+            if ( optional.isPresent() ) { // optional객체내 엔티티 존재 여부 판단
                 // Optional 클래스 : null 관련 메소드 제공
                 // 4.Optional객체에서 데이터[엔티티] 빼오기
                 MemberEntity entity = optional.get();
                 // 5. 탈퇴 [ delete : delete from member where mno = ? ]
                 memberRepository.delete(entity);
                 // 6. 세션 [ 세션삭제 = 로그아웃 ]
-                request.getSession().setAttribute("loginMno", null);
+                request.getSession().setAttribute( "loginMno", null );
                 return 1;
             }
         }
@@ -192,19 +203,19 @@ import java.util.*;
     }
 
     @Transactional
-    public int setupdate(String mpassword) {
-        Object object = request.getSession().getAttribute("loginMno");
+    public int setupdate( String mpassword ) {
+        Object object = request.getSession().getAttribute( "loginMno" );
         // 2. 세션 존재여부 판단
-        if (object != null) {
-            int mno = (Integer) object;
+        if ( object != null ) {
+            int mno = ( Integer ) object;
             // 3. pk값을 가지고 엔티티(레코드) 검색
             Optional<MemberEntity> optional
-                    = memberRepository.findById(mno);
+                    = memberRepository.findById( mno );
             // 4. 검색된 결과 여부 판단
-            if (optional.isPresent()) {
+            if ( optional.isPresent() ) {
                 MemberEntity entity = optional.get();
                 // 5. 찾은 엔티티의 필드값 변경 [ update member set 필드명 = 값 wehre 필드명 = 값 ]
-                entity.setMpassword(mpassword);
+                entity.setMpassword( mpassword );
                 return 1;
             }
         }
@@ -229,13 +240,13 @@ import java.util.*;
                 SecurityContextHolder.getContext().getAuthentication();
         // 2. 인증된 토큰 내용 확인
         Object principal = authentication.getPrincipal(); // Principal : 접근주체 [ UserDetails (MemberDto) ]
-        System.out.println("토큰 내용확인 : " + principal );
+        System.out.println( "토큰 내용확인 : " + principal );
 
         // 3. 토큰 내용에 따른 제어
-        if ( principal.equals("anonymousUser" ) ){ // anonymousUser 이면 로그인 전
+        if ( principal.equals( "anonymousUser" ) ){ // anonymousUser 이면 로그인 전
             return null;
         } else {
-            MemberDto memberDto = (MemberDto) principal;
+            MemberDto memberDto = ( MemberDto ) principal;
             return memberDto.getMemail()+'_'+memberDto.getAuthorities();
         }
     }
@@ -256,47 +267,47 @@ import java.util.*;
         // 2. 엔티티 --> DTO
             // Dto list 선언
         List<MemberDto> dtoList = new ArrayList<>();
-        for(MemberEntity entity : list){
+        for( MemberEntity entity : list ){
             dtoList.add(entity.toDto() );
         }
         return dtoList;
     }
     // 9. 인증코드 발송
 
-    public String getauth(String toemail){
+    public String getauth( String toemail ){
 
         String auth = ""; // 인증코드
         String html = "<html><body><h1> EZENWEB 회원가입 이메일 인증코드 입니다 </h1>";
 
         Random random = new Random();
-        for (int i = 0; i<6 ; i++){
-            char randchar = (char)(random.nextInt(26)+97); // 97 ~ 122 : 알파벳 소문자
+        for ( int i = 0; i<6 ; i++ ){
+            char randchar = ( char )( random.nextInt( 26)+97 ); // 97 ~ 122 : 알파벳 소문자
             // char randchar = (char)random.nextInt(10)+48; // 48 ~ 57 : 48 ~ 57 : 0 ~ 9
             auth += randchar;
         }
         html += "<div>인증코드 : "+auth+"</div>";
         html += "</body></html>";
-        mailsend( toemail , "ezen 인증코드" , html); // 메일전송
+        mailsend( toemail , "ezen 인증코드" , html ); // 메일전송
         return auth; // 인증코드 반환
     }
     // *. 메일 전송 서비스
-    public void mailsend(String tomail , String title , String content ){
+    public void mailsend( String tomail , String title , String content ){
         try {
             // 1. Mime 프로토콜 객체 생성
             MimeMessage message = javaMailSender.createMimeMessage();
             // 2. MimeHelper 설정 객체 생성 new MimeMessageHelper ( mime객체명 , 첨부파일여부 , 인코딩 )
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true, "UTF-8");
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper( message, true, "UTF-8" );
             // 3. 보내는사람 정보
-            mimeMessageHelper.setFrom("dksxotjq2@naver.com", "ezen");
+            mimeMessageHelper.setFrom( "ad221@naver.com", "ts" );
             // 4. 받는사람
-            mimeMessageHelper.setTo(tomail);
+            mimeMessageHelper.setTo( tomail );
             // 5. 메일 제목
-            mimeMessageHelper.setSubject(title);
+            mimeMessageHelper.setSubject( title );
             // 6. 메일 내용
-            mimeMessageHelper.setText(content.toString(), true); // HTML 형식 지원
+            mimeMessageHelper.setText( content.toString(), true ); // HTML 형식 지원
             // 7. 메일 전송
-            javaMailSender.send(message);
-        }catch (Exception e){System.out.println("메일 전송 실패" + e);}
+            javaMailSender.send( message );
+        }catch ( Exception e ){ System.out.println("메일 전송 실패" + e ) ; }
     }
 }
 

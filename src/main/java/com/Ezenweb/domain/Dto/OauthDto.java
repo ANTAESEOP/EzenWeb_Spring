@@ -1,5 +1,6 @@
 package com.Ezenweb.domain.Dto;
 
+import com.Ezenweb.domain.entity.Member.MemberEntity;
 import lombok.*;
 
 import java.security.PublicKey;
@@ -25,11 +26,11 @@ public class OauthDto {
             Map<String , Object> attributes )   // 3. 인증된 토큰
     {
 
-        if (registrationId.equals("kakao")) {
+        if (registrationId.equals( "kakao" ) ) {
             return ofKakao(registrationId, oauth2UserInfo, attributes);
-        } else if (registrationId.equals("naver")) {
+        } else if (registrationId.equals( "naver" ) ) {
             return ofNaver(registrationId, oauth2UserInfo, attributes);
-        } else if (registrationId.equals("google")) {
+        } else if (registrationId.equals( "google" ) ) {
             return ofGoogle(registrationId, oauth2UserInfo, attributes);
         } else {
             return null;
@@ -39,20 +40,20 @@ public class OauthDto {
         // 1. 카카오 객체 생성 메소드
         public static OauthDto ofKakao( String registrationId , String oauth2UserInfo , Map< String , Object > attributes ){
             // 1. 회원정보 호출
-            Map<String , Object> kakao_account = (Map<String, Object>) attributes.get( oauth2UserInfo );
+            Map<String , Object> kakao_account = ( Map<String, Object> ) attributes.get( oauth2UserInfo );
                 // kakao_account -> email , profile[ nickname ]
-            Map<String , Object> profile = (Map<String, Object>) kakao_account.get("profile");
+            Map<String , Object> profile = ( Map<String, Object> ) kakao_account.get( "profile" );
             return OauthDto.builder()
-                    .memail((String) kakao_account.get("email") )
-                    .mname((String) kakao_account.get("nickname") )
+                    .memail( ( String ) kakao_account.get( "email" ) )
+                    .mname( ( String ) kakao_account.get( "nickname" ) )
                     .registrationId( registrationId )
-                    .oauth2UserInfo(oauth2UserInfo)
+                    .oauth2UserInfo( oauth2UserInfo )
                     .attributes( attributes )
                     .build();
         }
         // 2. 네이버 객체 생성 메소드
         public static OauthDto ofNaver( String registrationId , String oauth2UserInfo , Map<String , Object> attributes ){
-            System.out.println("naver attributes : " + attributes);
+            System.out.println( "naver attributes : " + attributes);
             Map<String , Object> response = (Map<String, Object>) attributes.get( oauth2UserInfo );
             return OauthDto.builder()
                     .memail((String) response.get("email"))
@@ -64,14 +65,19 @@ public class OauthDto {
         }
         // 3. 구글 객체 생성 메소드
         public static OauthDto ofGoogle( String registrationId , String oauth2UserInfo , Map<String , Object> attributes ){
-            System.out.println("Google attributes : " + attributes);
+            System.out.println( "Google attributes : " + attributes );
             return OauthDto.builder()
-                    .memail((String) attributes.get("name"))
-                    .mname((String) attributes.get("name"))
+                    .memail( ( String ) attributes.get( "name" ) )
+                    .mname( ( String ) attributes.get( "name" ) )
                     .registrationId( registrationId )
                     .oauth2UserInfo( oauth2UserInfo )
                     .attributes( attributes )
                     .build();
         }
+        public MemberEntity toEntity() {
+            return MemberEntity.builder()
+                    .memail( this.memail )
+                    .mrol( this.registrationId )
+                    .build();
+        }
     } // class End
-

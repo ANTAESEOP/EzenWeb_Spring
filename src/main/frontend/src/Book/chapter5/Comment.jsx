@@ -10,7 +10,7 @@
 // 1.
 import React from 'react'; // 필수
 import styles from './Comment.css'; // css 파일 import
-
+import logo from '../../logo.svg'
 
 // 2.
 function Comment( props ){

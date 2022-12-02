@@ -22,9 +22,9 @@ import java.util.List;
         private int mno; // 회원 번호 필드
         @Column(nullable = false) // not null
         private String memail; // 회원 이메일 = 회원아이디 필드
-        @Column(nullable = false) // not null
+        @Column
         private String mpassword; // 회원 비밀번호 필드
-        @Column(nullable = false) // not null
+        @Column
         private String mphone; // 회원 전화번호 필드
 
         @OneToMany(mappedBy = "memberEntity") // [ 1 : N ] PK 에 해당 어노테이션 mappedBy = "fk")

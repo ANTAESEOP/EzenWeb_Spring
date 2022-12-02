@@ -33,10 +33,10 @@ public class MemberDto implements UserDetails , OAuth2User {
     // * dto ---> entity 변환
     public MemberEntity toEntity(){
         return MemberEntity.builder()
-                .mno(this.mno)
-                .memail(this.memail)
-                .mpassword(this.mpassword)
-                .mphone(this.mphone)
+                .mno( this.mno )
+                .memail( this.memail )
+                .mpassword( this.mpassword )
+                .mphone( this.mphone )
                 .build();
     }
 
@@ -77,7 +77,6 @@ public class MemberDto implements UserDetails , OAuth2User {
     public boolean isEnabled() {
         return true;
     }
-
 
     @Override
     public String getName() {
