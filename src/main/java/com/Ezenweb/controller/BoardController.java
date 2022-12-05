@@ -25,7 +25,7 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
     // ---------------- 2. 페이지 로드 [VIEW] ---------------- //
-
+/*
     // 1. 게시물 페이지 열기 [ localhost:8080/board/list ]
     @GetMapping("/list")
     public Resource getlist() { return new ClassPathResource("templates/board/list.html"); }
@@ -40,7 +40,7 @@ public class BoardController {
 
     // 4. 게시물 수정 페이지 열기 [ localhost:8080/board/update ]
     @GetMapping("/update")
-    public Resource getbupdate() { return new ClassPathResource("templates/board/update.html"); }
+    public Resource getbupdate() { return new ClassPathResource("templates/board/update.html"); }*/
 
     // ---------------- 3. 요청과 응답 처리 [MODEL] ---------------- //
 
