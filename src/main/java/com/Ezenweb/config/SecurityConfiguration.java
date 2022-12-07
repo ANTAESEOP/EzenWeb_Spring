@@ -28,19 +28,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()                               // 로그인 페이지 보안 설정
                     .loginPage( "/member/login" )            // 아이디와 비밀번호를 입력받을 URL [ 로그인 창 ]
                     .loginProcessingUrl( "/member/getmember" )  // 로그인을 처리할 URL [ 서비스 -->]
-                    .defaultSuccessUrl( "/index" )             // 로그인 성공했을때 이동할 URL
+                    .defaultSuccessUrl( "/" )             // 로그인 성공했을때 이동할 URL
                     .failureUrl( "/member/login" )// 로그인 실패시 이동할 URL
                     .usernameParameter( "memail" )                // 아이디 변수명
                     .passwordParameter( "mpassword" )             // 비밀번호 변수명
             .and()
                 .logout()               // 로그아웃 보안 설정                 // 로그아웃 처리 URL 정의
                     .logoutRequestMatcher( new AntPathRequestMatcher("/member/logout" ) )
-                    .logoutSuccessUrl( "/index" )     // 로그아웃 성공했을때 이동할 URL
+                    .logoutSuccessUrl( "/" )     // 로그아웃 성공했을때 이동할 URL
                     .invalidateHttpSession( true ) // 세션초기화 [ principal 초기화 ]
             .and() // 기능 구분
                 .csrf() // 요청 위조 방지
                     .ignoringAntMatchers( "/member/getmember" ) // 해당 URL 요청 방지 해지
                     .ignoringAntMatchers( "/member/setmember" ) // 회원가입 post 사용
+                    .ignoringAntMatchers("/board/setbcategory") // 회원가입 post 사용
             .and() // 기능 구분
                 .oauth2Login() // 소셜 로그인 보안 설정
                     .defaultSuccessUrl( "/index" ) // 소셜 로그인 성공시 이동하는 URL

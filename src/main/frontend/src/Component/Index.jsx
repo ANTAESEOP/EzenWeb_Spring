@@ -18,10 +18,11 @@ import Footer from './Footer';      // i = install
 import Signup from './member/Signup'
 import Login from './member/Login'
 import BoardList from './board/BoardList'
+import BoardWrite from './board/BoardWrite'
 
 // 라우터 설치 [ 터미널 ] : npm i react-router-dom vs npm install react-router-dom
 // import { 컴포넌트명 } from 'react-router-dom'; v6
-import { BrowserRouter , Routes , Route , Link , Router } from 'react-router-dom';
+import { HashRouter , BrowserRouter , Routes , Route , Link , Router } from 'react-router-dom';
     // BrowserRouter : 가상 URL
     //  vs HashRouter :
     // Routes : Route 목록 / 리스트
@@ -37,8 +38,9 @@ export default function Index( props ) {
                     <Routes>
                         <Route path="/" element={ <Home/>} />
                         <Route path="/member/signup" element={ <Signup/> } />
-                        <Route path="/member/Login" element={ <Login/> } />
-                        <Route path="/board/List" element={ <BoardList/> } />
+                        <Route path="/member/login" element={ <Login/> } />
+                        <Route path="/board/list" element={ <BoardList/> } />
+                        <Route path="/board/write" element={ <BoardWrite/> } />
                     </Routes>
                 <Footer/>
             </BrowserRouter>

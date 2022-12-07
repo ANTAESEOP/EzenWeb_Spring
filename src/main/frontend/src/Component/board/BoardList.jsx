@@ -1,5 +1,5 @@
 import React from 'react';
-export default function BoardList(  ){
+export default function BoardList(){
     return(
         <div>
             <a href="/board/write"> 글 쓰기 [ 로그인 했을때만 표시 ] </a>

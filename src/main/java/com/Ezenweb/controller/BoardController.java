@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import java.util.List;
 
+@CrossOrigin
 @RestController // @Controller + @ResponseBody = @RestController [ 컴포넌트 주입 ]
 @RequestMapping("/board") // 공통 URL [ localhost:8080/board ]
 public class BoardController {
