@@ -107,7 +107,7 @@ public class BoardService {
 
     // 1. 게시물 쓰기
     @Transactional
-    public boolean setboard(BoardDto boardDto) {
+    public boolean setboard( BoardDto boardDto ) {
         // --------------------------------//
         MemberEntity memberEntity = memberService.getEntity();
         if( memberEntity == null ){ return false;}

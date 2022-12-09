@@ -1,4 +1,3 @@
-
 import React , { useState } from 'react'; // 컴포넌트 호출
 import Styles from '../css/header.css'; // src->css->header.css
 import logo from '../img/logo.png'    // 이미지 적용
@@ -10,7 +9,7 @@ export default function Header(){
     const [ login , setLogin ] = useState(null); // 로그인된 회원정보 state 생명주기 // 변경시 재 렌더링
 
     axios
-        .get("http://localhost:8080/member/getloginMno")
+        .get("/member/getloginMno")
         .then( (response) => { setLogin ( response.data ); } )
 
     return (
@@ -20,11 +19,25 @@ export default function Header(){
                     <Link to="/" > <img className="logo" src={logo} /> </Link>
                 </div>
                 <ul className ="top_menu">
-                    <li> { login } </li>
-                    <li> <Link to="/member/signup" > 회원가입   </Link> </li>
-                    <li> <Link to="/member/login" > 로그인     </Link> </li>
-                    <li> <a href="/member/logout"> 로그아웃     </a> </li>
-                    <li> <Link to="/board/list" > 자유게시판     </Link> </li>
+
+                    { login == "" ?
+                         (
+                             <>
+                                 <li> <Link to="/member/signup" > 회원가입   </Link> </li> <br/>
+                                 <li> <Link to="/member/login" > 로그인     </Link> </li>
+                             </>
+                         )
+                         :
+                         (
+                             <>
+                                 <li> { login } </li>
+                                 <li> <a href="/member/logout"> 로그아웃 </a> </li>
+                                 <li> <Link to="/book/list"> 리액트 공부방 </Link> </li>
+                             </>
+                         )
+                    }
+
+                              <li> <Link to="/board/list" > 자유게시판     </Link> </li>
                 </ul>
             </div>
         </div>

@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import Index from './Component/Index' // Index.jsx 사용하겠다.
+import Index from './Component/Index'               // Index.jsx 사용하겠다.
 import Signup from './Component/member/Signup'      // Signup.jsx 사용하겠다.
 
 // 1. 사용할 컴포넌트 호출 [ import 컴포넌트명 from 파일명 ]
@@ -14,6 +14,11 @@ import CommentList from './Book/chapter5/CommentList'    // [5] CommentList.jsx 
 import NotificationList from './Book/chapter6/NotificationList' // [6] Notification.jsx 호출
 import Counter from './Book/chapter7/Ex1_Hook'
 import Accommodate from './Book/chapter7/Accommodate'
+import ConfirmButton from './Book/chapter8/ConfirmButton'
+import ConfirmButton2 from './Book/chapter8/ConfirmButton2'
+import TestState from './Book/chapter8/TestState'
+import LandingPage from './Book/chapter9/LandingPage'
+import Toolbar from './Book/chapter9/Toolbar'
 
 // 2. Dom 컨테이너 [ public-> index.html 안에 있는 태그 ]
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -84,15 +89,59 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
     );
 */
 
-
-//7. ex1
-/*    root.render(
+// 7. ex1
+/*
+    root.render(
       <React.StrictMode>
         <Accommodate />
       </React.StrictMode>
-    );*/
+    );
+*/
 
+// 8.
+/*
+    root.render(
+      <React.StrictMode>
+        <ConfirmButton />
+      </React.StrictMode>
+    );
+*/
 
+// 9.
+/*
+    root.render(
+      <React.StrictMode>
+        <ConfirmButton2 />
+      </React.StrictMode>
+    );
+*/
+
+// 10.
+/*
+    root.render(
+      <React.StrictMode>
+        <TestState />
+      </React.StrictMode>
+    );
+*/
+
+// 11.
+/*
+    root.render(
+      <React.StrictMode>
+        <LandingPage />
+      </React.StrictMode>
+    );
+*/
+
+// 12.
+/*
+    root.render(
+      <React.StrictMode>
+        <Toolbar />
+      </React.StrictMode>
+    );
+*/
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

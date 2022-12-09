@@ -9,16 +9,30 @@
             // 2. function 컴포넌트명() { return ( 렌더링할 코드 ); }
             // 3. export default 컴포넌트명;
                 // 2,3 : export default function 컴포넌트명() { return ( 렌더링할 코드 ) ; }
-
 // 1.
 import React from 'react';
 import Header from './Header';
-import Home from './Home'
-import Footer from './Footer';      // i = install
-import Signup from './member/Signup'
-import Login from './member/Login'
-import BoardList from './board/BoardList'
-import BoardWrite from './board/BoardWrite'
+import Home from './Home';
+import Footer from './Footer';
+import Signup from './member/Signup';
+import Login from './member/Login';
+import BoardList from './board/BoardList';
+import BoardWrite from './board/BoardWrite';
+import BookList from '../Book/BookList';
+//---------------------------------------------------------------
+import Book from '../Book/chapter3/Book';
+import Library from '../Book/chapter3/Library';
+import Clock from '../Book/chapter4/Clock';
+import CommentList from '../Book/chapter5/CommentList';
+import NotificationList from '../Book/chapter6/NotificationList';
+import Counter from '../Book/chapter7/Ex1_Hook';
+import Accommodate from '../Book/chapter7/Accommodate';
+import ConfirmButton from '../Book/chapter8/ConfirmButton';
+import LandingPage from '../Book/chapter9/LandingPage';
+import AttendanceBook from '../Book/chapter10/AttendanceBook'
+import Ex1_Form from '../Book/chapter11/Ex1_Form';
+import SignUp from '../Book/chapter11/SignUp';
+
 
 // 라우터 설치 [ 터미널 ] : npm i react-router-dom vs npm install react-router-dom
 // import { 컴포넌트명 } from 'react-router-dom'; v6
@@ -41,6 +55,17 @@ export default function Index( props ) {
                         <Route path="/member/login" element={ <Login/> } />
                         <Route path="/board/list" element={ <BoardList/> } />
                         <Route path="/board/write" element={ <BoardWrite/> } />
+                        <Route path="/book/list" element={ <BookList/> } />
+                        <Route path="/c3/Library" element={ <Library/> } />
+                        <Route path="/c4/clock" element={ <Clock/> } />
+                        <Route path="/c5/commentlist" element={ <CommentList/> } />
+                        <Route path="/c6/notificationlist" element={ <NotificationList/> } />
+                        <Route path="/c7/accommodate" element={ <Accommodate/> } />
+                        <Route path="/c8/confirmbutton" element={ <ConfirmButton/> } />
+                        <Route path="/c9/landingpage" element={ <LandingPage/> } />
+                        <Route path="/c10/attendancebook" element={ <AttendanceBook/> } />
+                        <Route path="/c11/ex1form" element={ <Ex1_Form/> } />
+                        <Route path="/c11/ex1signup" element={ <SignUp/> } />
                     </Routes>
                 <Footer/>
             </BrowserRouter>
