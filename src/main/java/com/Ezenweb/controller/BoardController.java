@@ -2,6 +2,7 @@ package com.Ezenweb.controller;
 
 import com.Ezenweb.domain.Dto.BcategoryDto;
 import com.Ezenweb.domain.Dto.BoardDto;
+import com.Ezenweb.domain.Dto.PageDto;
 import com.Ezenweb.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -63,14 +64,9 @@ public class BoardController {
     }
 
     // 2. 게시물 목록 조회 [ 페이징 , 검색 ]
-    @GetMapping("/boardlist")
-    public List <BoardDto> boardlist(
-            @RequestParam("bcno") int bcno ,
-            @RequestParam("page") int page ,
-            @RequestParam("key") String key ,
-            @RequestParam("keyword") String keyword
-            ){
-        return boardService.boardlist( bcno , page , key , keyword );
+    @PostMapping("/boardlist")
+    public PageDto boardlist(@RequestBody PageDto pageDto){
+        return boardService.boardlist( pageDto );
     }
     // 3. 게시물 개별 조회
     @GetMapping("/getboard")

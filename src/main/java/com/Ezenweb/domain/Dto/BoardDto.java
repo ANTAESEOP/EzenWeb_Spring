@@ -22,9 +22,7 @@ public class BoardDto {
     private int bcno;            // 카테고리 [ 카테고리 - FK ]
     private String memail;         // 회원 아이디
 
-    private int startbtn;
-    private int endbtn;
-
+    private String bdate; // 작성일
 
     // 1. 형번환
     public BoardEntity toEntity() {
