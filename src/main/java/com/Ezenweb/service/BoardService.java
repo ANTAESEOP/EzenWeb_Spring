@@ -47,7 +47,7 @@ public class BoardService {
     private MemberService memberService;
 
     // 첨부파일 경로
-    String path = "C:\\Users\\504\\Desktop\\springweb\\EzenWeb\\src\\main\\resources\\static\\bupload\\";
+    String path = "C:\\upload\\";
 
     // @Transactional : 엔티티 DML 적용 할때 사용되는 어노테이션
     // 1. 메소드
@@ -87,7 +87,7 @@ public class BoardService {
     }
     // * 첨부파일 업로드 [ 1. 쓰기메소드 2. 수정메소드
     public boolean fileupload( BoardDto boardDto , BoardEntity boardEntity){
-        if( boardDto.getBfile() != null ) {
+        if( !boardDto.getBfile().getOriginalFilename().equals("") ) {
             // * 업로드 된 파일의 이름 [ 문제점 : 파일명 중복 ]
             String uuid = UUID.randomUUID().toString(); // 1. 난수 생성
             String filename = uuid + "_" + boardDto.getBfile().getOriginalFilename(); // 2. 난수 + 파일명
@@ -159,6 +159,8 @@ public class BoardService {
         List<BoardDto> dlist = new ArrayList<>(); // 2. 컨트롤에게 전달할때 형 변환 [ entity -> dto ] : 역할이 달라서
         for (BoardEntity entity : elist) { // 3. 변환
             dlist.add( entity.toDto());
+
+
         }
         pageDto.setList( dlist );
         pageDto.setStartbtn( startbtn );
@@ -208,7 +210,7 @@ public class BoardService {
         if (optional.isPresent()) {
             BoardEntity entity = optional.get();
                 // 1. 수정할 첨부파일이 있을때 ---> 기존 첨부파일 삭제 후 ---> 새로운 첨부파일 업로드 , db 수정한다.
-                if( boardDto.getBfile() != null ){ // boardDto : 수정할 정보 boardEntity : 원본 [ db 테이블 ]
+                if( !boardDto.getBfile().getOriginalFilename().equals("") ){ // boardDto : 수정할 정보 boardEntity : 원본 [ db 테이블 ]
                     if(entity.getBfile() != null) {// 기존 첨부파일 있을때
                         File file = new File(path + entity.getBfile());
                         if (file.exists()) { // 존재하면

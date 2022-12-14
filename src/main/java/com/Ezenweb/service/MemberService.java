@@ -253,7 +253,7 @@ import java.util.*;
             return null;
         } else {
             MemberDto memberDto = ( MemberDto ) principal;
-            return memberDto.getMemail()+'_'+memberDto.getAuthorities();
+            return memberDto.getMemail();
         }
     }
 

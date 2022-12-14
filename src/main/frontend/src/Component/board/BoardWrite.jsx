@@ -52,7 +52,7 @@ export default function BoardWrite( props ){
             .post("/board/setboard" , formdata , { headers : { "Content-Type" : 'multipart/form-data' } } )
             .then( res => {
                     console.log( res.data )
-                    if( res.data == true ){ alert("게시물 작성 성공"); }
+                    if( res.data == true ){ alert("게시물 작성 성공"); window.location.href='/board/list'; }
                     else{ alert("게시물 작성 실패") }
                 })
             .catch( err => { console.log( err ) } )
@@ -76,7 +76,7 @@ export default function BoardWrite( props ){
                             )
                         })
                     }
-                </div> // bcategory end
+                </div>
 
                 <div>
                     <form className="boardform">
@@ -89,8 +89,8 @@ export default function BoardWrite( props ){
                         />
                         첨부파일 : <input type ="file" Name="bfile" /> <br/>
                         <button type="button" onClick={ setboard }> 등록 </button>
-                    </form> // form end
-                </div> // board form end
-        </div> // 전체 div
+                    </form>
+                </div>
+        </div>
     );
 }

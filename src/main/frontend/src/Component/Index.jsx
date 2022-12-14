@@ -20,6 +20,7 @@ import BoardList from './board/BoardList';
 import BoardWrite from './board/BoardWrite';
 import BookList from '../Book/BookList';
 import BoardView from './board/BoardView';
+import BoardUpdate from './board/BoardUpdate';
 //---------------------------------------------------------------
 import Book from '../Book/chapter3/Book';
 import Library from '../Book/chapter3/Library';
@@ -57,6 +58,7 @@ export default function Index( props ) {
                         <Route path="/board/list" element={ <BoardList/> } />
                         <Route path="/board/write" element={ <BoardWrite/> } />
                         <Route path="/board/view/:bno" element={ <BoardView/> } />
+                        <Route path="/board/update/:bno" element={ <BoardUpdate/> } />
                         <Route path="/book/list" element={ <BookList/> } />
                         <Route path="/c3/Library" element={ <Library/> } />
                         <Route path="/c4/clock" element={ <Clock/> } />
@@ -67,7 +69,7 @@ export default function Index( props ) {
                         <Route path="/c9/landingpage" element={ <LandingPage/> } />
                         <Route path="/c10/attendancebook" element={ <AttendanceBook/> } />
                         <Route path="/c11/ex1form" element={ <Ex1_Form/> } />
-                        <Route path="/c11/ex1signup" element={ <SignUp/> } />
+                        <Route path="/c11/ex1signup2" element={ <SignUp/> } />
                     </Routes>
                 <Footer/>
             </BrowserRouter>
