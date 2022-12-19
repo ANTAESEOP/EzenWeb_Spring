@@ -23,8 +23,8 @@ export default function Header(){
                     { login == "" ?
                          (
                              <>
-                                 <li> <Link to="/member/signup" > 회원가입   </Link> </li> <br/>
-                                 <li> <Link to="/member/login" > 로그인     </Link> </li>
+                                 <li> <Link to="/member/signup" > 회원가입 </Link> </li> <br/>
+                                 <li> <Link to="/member/login" > 로그인 </Link> </li>
                              </>
                          )
                          :
@@ -36,8 +36,8 @@ export default function Header(){
                              </>
                          )
                     }
-
-                              <li> <Link to="/board/list" > 자유게시판     </Link> </li>
+                              <li> <Link to="/board/list" > 자유게시판 </Link> </li>
+                              <li> <Link to="/chatting" > 익명채팅방 </Link> </li>
                 </ul>
             </div>
         </div>
