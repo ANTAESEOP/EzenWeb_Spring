@@ -162,10 +162,10 @@ public class BoardService {
 
 
         }
-        pageDto.setList( dlist );
-        pageDto.setStartbtn( startbtn );
-        pageDto.setEndbtn( endbtn );
-        pageDto.setTotalBoards( elist.getTotalElements() );
+            pageDto.setList( dlist );
+            pageDto.setStartbtn( startbtn );
+            pageDto.setEndbtn( endbtn );
+            pageDto.setTotalBoards( elist.getTotalElements() );
 
         return pageDto; // 4. 변환된 리스트 pageDto 변환
     }

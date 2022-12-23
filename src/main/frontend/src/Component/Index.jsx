@@ -22,6 +22,7 @@ import BookList from '../Book/BookList';
 import BoardView from './board/BoardView';
 import BoardUpdate from './board/BoardUpdate';
 import Chatting from './chatting/Chatting'
+import RoomWrite from './room/RoomWrite';
 //---------------------------------------------------------------
 import Book from '../Book/chapter3/Book';
 import Library from '../Book/chapter3/Library';
@@ -35,6 +36,7 @@ import LandingPage from '../Book/chapter9/LandingPage';
 import AttendanceBook from '../Book/chapter10/AttendanceBook'
 import Ex1_Form from '../Book/chapter11/Ex1_Form';
 import SignUp from '../Book/chapter11/SignUp';
+import Calculator from '../Book/chapter12/Calculator';
 
 
 // 라우터 설치 [ 터미널 ] : npm i react-router-dom vs npm install react-router-dom
@@ -62,6 +64,7 @@ export default function Index( props ) {
                         <Route path="/board/update/:bno" element={ <BoardUpdate/> } />
                         <Route path="/board/update/:bno" element={ <BoardUpdate/> } />
                         <Route path="chatting" element={ <Chatting/> } />
+                        <Route path="/room/write" element={ <RoomWrite/> } />
                         <Route path="/book/list" element={ <BookList/> } />
                         <Route path="/c3/Library" element={ <Library/> } />
                         <Route path="/c4/clock" element={ <Clock/> } />
@@ -73,6 +76,7 @@ export default function Index( props ) {
                         <Route path="/c10/attendancebook" element={ <AttendanceBook/> } />
                         <Route path="/c11/ex1form" element={ <Ex1_Form/> } />
                         <Route path="/c11/ex1signup2" element={ <SignUp/> } />
+                        <Route path="/c12/Calculator" element={ <Calculator/> } />
                     </Routes>
                 <Footer/>
             </BrowserRouter>

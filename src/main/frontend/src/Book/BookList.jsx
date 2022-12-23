@@ -32,6 +32,8 @@ export default function BookList( props ) {
                 <li> <Link to="/c10/attendancebook"> 챕10 </Link> </li>
                 <li> <Link to="/c11/ex1form"> 챕11-1 </Link> </li>
                 <li> <Link to="/c11/ex1signup"> 챕11-2 </Link> </li>
+                <li> <Link to="/c12/Calculator"> 챕12 </Link> </li>
+
         </div>
     );
 }
